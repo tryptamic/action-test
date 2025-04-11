@@ -5,7 +5,7 @@ on:
 
 jobs:
   run:
-    uses: ./script2.yaml@main
+    uses: tryptamic/action-test/.github/workflows/script2.yaml@main
     env:
       ENV_VARS: |
         -- FOOBAR=${{ secrets.TEST_SECRET }}

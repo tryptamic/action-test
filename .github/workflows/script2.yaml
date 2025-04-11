@@ -5,6 +5,6 @@ on:
 
 jobs:
   run:
-    uses: ./script3.yaml@main
+    uses: tryptamic/action-test/.github/workflows/script3.yaml@main
     env:
       ENV_VARS: ${{ env.ENV_VARS }}
