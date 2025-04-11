@@ -4,8 +4,19 @@ on:
   workflow_dispatch:
 
 jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    outputs:
+      computed_value: ${{ steps.set_output.outputs.value }}
+    steps:
+      - id: forward_env
+        run: echo "$ENV_VARS" >> $GITHUB_OUTPUT
+        env:
+          ENV_VARS: |
+            -- ONE=foo ${{ secrets.TEST_SECRET }} bar
+            -- TWO=fix ${{ secrets.TEST_SECRET }} fox
+
   run:
     uses: tryptamic/action-test/.github/workflows/script2.yaml@master
-    env:
-      ENV_VARS: |
-        -- FOOBAR=${{ secrets.TEST_SECRET }}
+    with:
+      env-vars: ${{ needs.prepare.outputs.computed_value }}
