@@ -2,9 +2,13 @@ name: Script 2
 
 on:
   workflow_call:
+    inputs:
+      env-vars:
+        type: string
+        default: ""
 
 jobs:
   run:
     uses: tryptamic/action-test/.github/workflows/script3.yaml@master
-    env:
-      ENV_VARS: ${{ env.ENV_VARS }}
+    with:
+      env-vars: ${{ inputs.env-vars }}
