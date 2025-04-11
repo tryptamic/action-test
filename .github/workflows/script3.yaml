@@ -2,6 +2,10 @@ name: Script 3
 
 on:
   workflow_call:
+    inputs:
+      env-vars:
+        type: string
+        default: ""
 
 jobs:
   run:
@@ -10,7 +14,8 @@ jobs:
       - name: Reflect Env Propagation
         run: 
           # Generic propagation of environment variables
-          INPUT="${INPUT_NV_VARS#*$'\n-- '}"
+          INPUT_ENV_VARS="${{ inputs.env-vars }}
+          INPUT="${INPUT_ENV_VARS#*$'\n-- '}"
           while [[ -n "$INPUT" ]]; do
             [[ "$INPUT" == *$'\n-- '* ]] && { block="${INPUT%%$'\n-- '*}"; INPUT="${INPUT#*$'\n-- '}"; } || { block="$INPUT"; INPUT=""; }
             export "${block%%=*}=${block#*=}"
