@@ -1,0 +1,10 @@
+name: Script 2
+
+on:
+  workflow_call:
+
+jobs:
+  run:
+    uses: ./script3.yaml@main
+    env:
+      ENV_VARS: ${{ env.ENV_VARS }}

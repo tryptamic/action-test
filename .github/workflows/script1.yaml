@@ -1,0 +1,11 @@
+name: Script 1
+
+on:
+  workflow_dispatch:
+
+jobs:
+  run:
+    uses: ./script2.yaml@main
+    env:
+      ENV_VARS: |
+        -- FOOBAR=${{ secrets.TEST_SECRET }}

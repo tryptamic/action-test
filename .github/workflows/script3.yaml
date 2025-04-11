@@ -1,0 +1,20 @@
+name: Script 3
+
+on:
+  workflow_call:
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Reflect Env Propagation
+        run: 
+          # Generic propagation of environment variables
+          INPUT="${INPUT_NV_VARS#*$'\n-- '}"
+          while [[ -n "$INPUT" ]]; do
+            [[ "$INPUT" == *$'\n-- '* ]] && { block="${INPUT%%$'\n-- '*}"; INPUT="${INPUT#*$'\n-- '}"; } || { block="$INPUT"; INPUT=""; }
+            export "${block%%=*}=${block#*=}"
+            echo "${block%%=*}=${block#*=}"
+            echo "----------"
+          done
+  
