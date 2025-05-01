@@ -1,0 +1,21 @@
+name: Echo Stage
+
+on:
+  workflow_dispatch:
+    inputs:
+      stage:
+        description: "Choose a stage"
+        required: true
+        type: choice
+        options:
+          - dev
+          - test
+          - prod
+
+jobs:
+  echo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo selected stage
+        run: |
+          echo "Selected stage is: ${{ inputs.stage }}"
